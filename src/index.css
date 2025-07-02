@@ -1,0 +1,34 @@
+/* src/index.css */
+
+body {
+  background-color: #f0f2f5;
+}
+
+/* SOLUCIÓN 1: Mejorar contraste de los mensajes de error.
+  Le damos un fondo claro y más relleno a todos los mensajes
+  de validación para que sean siempre legibles.
+*/
+.invalid-feedback {
+  background-color: #f8d7da; /* Rojo claro de alerta */
+  color: #721c24; /* Rojo oscuro para el texto */
+  padding: 8px 12px;
+  margin-top: 6px;
+  border-radius: 5px;
+  font-weight: 500;
+}
+
+/*
+  SOLUCIÓN 2: Eliminar la palomita verde de los campos válidos.
+  Esto previene que aparezca el ícono de éxito y el borde verde,
+  manteniendo la interfaz más limpia.
+*/
+.was-validated .form-control:valid {
+  border-color: #dee2e6; /* Restaura el color del borde original */
+  background-image: none; /* Elimina la imagen de fondo (la palomita) */
+  box-shadow: none; /* Elimina el resplandor verde */
+}
+
+/* Ajuste para que el input de teléfono no muestre la sombra verde tampoco */
+.was-validated .PhoneInput input:valid {
+    box-shadow: none;
+}
