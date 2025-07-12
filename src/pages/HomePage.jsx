@@ -7,7 +7,17 @@ import PhoneInput, { getCountryCallingCode } from 'react-phone-number-input';
 import { db } from '../firebaseConfig'; // Importamos nuestra conexión a la BD
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'; // Funciones de Firestore
 
-// --- Logos SVG (sin cambios) ---
+// --- PASO 1: IMPORTAR LOS LOGOS DESDE LA CARPETA ASSETS ---
+import visaLogo from '../assets/logos/visa.svg';
+import mastercardLogo from '../assets/logos/mastercard.svg';
+import mercadoPagoLogo from '../assets/logos/ml.png';
+import clipLogo from '../assets/logos/clip.svg';
+import safetyPayLogo from '../assets/logos/safetypay.png';
+import efectyLogo from '../assets/logos/efecty.svg';
+import pseLogo from '../assets/logos/pse.png';
+import bcpLogo from '../assets/logos/bcp.png';
+
+
 const VisaLogo = () => ( <svg>...</svg> /* Pega el código SVG completo aquí */ );
 const MasterCardLogo = () => ( <svg>...</svg> /* Pega el código SVG completo aquí */ );
 
@@ -101,7 +111,7 @@ function HomePage() {
                 {phoneError && <div className="invalid-feedback d-block">{phoneError}</div>}
               </Form.Group>
               <Button type="submit" className="w-100 p-3 mt-3 btn-gold" size="lg" disabled={isLoading}>
-                {isLoading ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : 'Crear mi Cuenta Ahora'}
+                {isLoading ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : 'Solicitar información'}
               </Button>
             </Form>
           </Col>
@@ -112,7 +122,18 @@ function HomePage() {
             <hr className="my-4" />
             <div className="mt-auto">
                 <p className="text-muted mb-2">Aceptamos pagos seguros con:</p>
-                <div className="d-flex align-items-center"><MasterCardLogo /><VisaLogo /></div>
+                 {/* --- PASO 2: SECCIÓN DE LOGOS ACTUALIZADA --- */}
+                <div className="payment-logo-wall">
+                    <img src={visaLogo} alt="Visa" className="payment-logo" />  
+                    <img src={mastercardLogo} alt="MasterCard" className="payment-logo" />
+                    <img src={mercadoPagoLogo} alt="Mercado Pago" className="payment-logo" />
+                    <img src={clipLogo} alt="Clip" className="payment-logo" />
+                    <img src={safetyPayLogo} alt="SafetyPay" className="payment-logo" />
+                    <img src={efectyLogo} alt="Efecty" className="payment-logo" />
+                    <img src={bcpLogo} alt="BCP" className="payment-logo" />
+                    <img src={pseLogo} alt="PSE" className="payment-logo" />
+                   
+                </div>
             </div>
           </Col>
         </Row>

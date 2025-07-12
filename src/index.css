@@ -63,3 +63,23 @@ body {
   color: white;
   border-color: #444;
 }
+
+/* src/index.css */
+
+.payment-logo-wall {
+  display: flex;
+  flex-wrap: wrap; 
+  align-items: center;
+  gap: 16px; /* Espacio entre logos */
+}
+
+.payment-logo {
+  /* Aquí definimos el tamaño pequeño */
+  height: 25px; 
+  max-width: 80px;
+  object-fit: contain;
+
+  /* Este es el truco que ayuda a que el fondo blanco del JPG
+     se fusione y 'desaparezca' contra el fondo gris claro. */
+  mix-blend-mode: multiply;
+}
