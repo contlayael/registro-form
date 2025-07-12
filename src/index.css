@@ -1,34 +1,65 @@
 /* src/index.css */
 
 body {
-  background-color: #f0f2f5;
+  /* Gradiente radial que va de un gris oscuro en el centro a negro en los bordes */
+  background: radial-gradient(ellipse at center, #2c3e50 0%, #000000 100%);
+  min-height: 100vh; /* Asegura que el gradiente cubra toda la altura de la pantalla */
 }
 
-/* SOLUCIÓN 1: Mejorar contraste de los mensajes de error.
-  Le damos un fondo claro y más relleno a todos los mensajes
-  de validación para que sean siempre legibles.
-*/
-.invalid-feedback {
-  background-color: #f8d7da; /* Rojo claro de alerta */
-  color: #721c24; /* Rojo oscuro para el texto */
-  padding: 8px 12px;
-  margin-top: 6px;
-  border-radius: 5px;
+/* --- TEMA OSCURO PREMIUM (NEGRO Y DORADO) --- */
+
+/* 1. Definimos nuestros colores para reusarlos */
+:root {
+  --color-fondo-oscuro: #121212; /* Un negro elegante, no puro */
+  --color-acento-dorado: #D4AF37;
+  --color-texto-claro: #EAEAEA;
+  --color-borde-oscuro: #333;
+}
+
+/* 2. Estilos para el contenedor del formulario */
+.form-container-dark {
+  background-color: var(--color-fondo-oscuro);
+  color: var(--color-texto-claro);
+  border-radius: 0.375rem 0 0 0.375rem; /* Asegura bordes redondeados a la izquierda */
+}
+
+/* 3. Estilos para los campos del formulario en modo oscuro */
+.form-container-dark .form-control {
+  background-color: #2a2a2a;
+  color: var(--color-texto-claro);
+  border: 1px solid var(--color-borde-oscuro);
+}
+
+.form-container-dark .form-control:focus {
+  background-color: #333;
+  color: white;
+  border-color: var(--color-acento-dorado);
+  box-shadow: 0 0 0 0.25rem rgba(212, 175, 55, 0.25);
+}
+
+.form-container-dark .form-label {
   font-weight: 500;
 }
 
-/*
-  SOLUCIÓN 2: Eliminar la palomita verde de los campos válidos.
-  Esto previene que aparezca el ícono de éxito y el borde verde,
-  manteniendo la interfaz más limpia.
-*/
-.was-validated .form-control:valid {
-  border-color: #dee2e6; /* Restaura el color del borde original */
-  background-image: none; /* Elimina la imagen de fondo (la palomita) */
-  box-shadow: none; /* Elimina el resplandor verde */
+/* 4. Estilo para el botón dorado */
+.btn-gold {
+  background-color: var(--color-acento-dorado);
+  color: var(--color-fondo-oscuro);
+  border: none;
+  font-weight: bold;
+  transition: transform 0.2s ease-in-out;
 }
 
-/* Ajuste para que el input de teléfono no muestre la sombra verde tampoco */
-.was-validated .PhoneInput input:valid {
-    box-shadow: none;
+.btn-gold:hover {
+  background-color: #c8a430; /* Un dorado un poco más oscuro */
+  color: #000;
+  transform: scale(1.02);
+}
+
+
+/* Estilos para los campos de texto dentro de la tabla oscura */
+.table-dark textarea.form-control {
+  background-color: #3a3a3a;
+  color: white;
+  border-color: #444;
 }
