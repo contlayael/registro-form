@@ -41,6 +41,33 @@ body {
   font-weight: 500;
 }
 
+/* --- BLOQUE DE VALIDACIÓN DEFINITIVO --- */
+
+/* 1. Oculta la palomita verde y el borde verde en campos válidos.
+      Queremos un look limpio: o neutral o con error, pero nunca de "éxito". */
+.was-validated .form-control:valid,
+.form-control.is-valid {
+  border-color: #dee2e6 !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+/* 2. Asegura que el input de teléfono tampoco muestre estilos de éxito. */
+.was-validated .PhoneInput input:valid,
+.PhoneInput input.is-valid {
+    box-shadow: none !important;
+}
+
+/* 3. Da un fondo a los mensajes de error para que siempre sean legibles. */
+.invalid-feedback {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 8px 12px;
+  margin-top: 6px;
+  border-radius: 5px;
+  font-weight: 500;
+}
+
 /* 4. Estilo para el botón dorado */
 .btn-gold {
   background-color: var(--color-acento-dorado);

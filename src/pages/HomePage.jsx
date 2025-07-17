@@ -6,6 +6,7 @@ import 'react-phone-number-input/style.css';
 import PhoneInput, { getCountryCallingCode } from 'react-phone-number-input';
 import { db } from '../firebaseConfig'; // Importamos nuestra conexión a la BD
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'; // Funciones de Firestore
+import { isValidPhoneNumber } from 'react-phone-number-input'
 
 // --- PASO 1: IMPORTAR LOS LOGOS DESDE LA CARPETA ASSETS ---
 import visaLogo from '../assets/logos/visa.svg';
@@ -36,10 +37,10 @@ function HomePage() {
     const form = event.currentTarget;
     let isPhoneValid = true;
 
-    if (!phone || phone.length < 8) {
-      setPhoneError('Por favor, ingrese un número de teléfono completo.');
-      isPhoneValid = false;
-    } else {
+    if (!phone || !isValidPhoneNumber(phone)) {
+  setPhoneError('Por favor, ingrese un número de teléfono válido.');
+  isPhoneValid = false;
+} else {
       setPhoneError('');
     }
 
@@ -102,11 +103,13 @@ function HomePage() {
                 <PhoneInput 
                   international 
                   defaultCountry="CO" 
+                  limitMaxLength
                   value={phone} 
                   onChange={setPhone} 
                   onCountryChange={setCountry} // Guardamos el país cuando cambia
                   inputComponent={Form.Control} 
-                  isInvalid={!!phoneError}
+                  isInvalid={validated && !!phoneError}
+                  isValid={validated && !phoneError && phone.length > 8}
                   disabled={isLoading}
                 />
                 {phoneError && <div className="invalid-feedback d-block">{phoneError}</div>}
