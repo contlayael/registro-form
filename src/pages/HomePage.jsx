@@ -16,6 +16,7 @@ import safetyPayLogo from '../assets/logos/safetypay.png';
 import efectyLogo from '../assets/logos/efecty.svg';
 import pseLogo from '../assets/logos/pse.png';
 import bcpLogo from '../assets/logos/bcp.png';
+import backgroundImage from '../assets/barras.png';
 
 
 const VisaLogo = () => ( <svg>...</svg> /* Pega el código SVG completo aquí */ );
@@ -83,7 +84,7 @@ function HomePage() {
       <Card className="w-100 shadow-lg" style={{ maxWidth: '1100px', border: 'none' }}>
         <Row className="g-0">
           <Col lg={6} className="p-5 form-container-dark">
-            <h2 className="fw-bold mb-3" style={{ color: '#D4AF37' }}>Inversiones Bruno</h2>
+            <h2 className="fw-bold mb-3" style={{ color: '#D4AF37' }}>Inversiones Divitum Trade</h2>
             <p className="mb-4 text-white-50">Complete el formulario para comenzar.</p>
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
               <Form.Group className="mb-3" controlId="formFullName">
@@ -115,24 +116,33 @@ function HomePage() {
               </Button>
             </Form>
           </Col>
-          <Col lg={6} className="p-5 d-flex flex-column justify-content-center bg-light">
-            {/* Columna derecha sin cambios */}
-            <h1 className="display-5 fw-bold text-dark mb-3">Transforme su Futuro Financiero.</h1>
-            <p className="lead text-secondary mb-4">En <strong style={{color: '#B8860B'}}>Inversiones Bruno</strong>, le abrimos las puertas a oportunidades de inversión exclusivas.</p>
+           <Col 
+            lg={6} 
+            className="p-5 d-flex flex-column justify-content-center"
+            style={{ 
+              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${backgroundImage})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'
+            }}
+          >
+            {/* Columna derecha */}
+             <h1 className="display-5 fw-bold mb-3 text-on-image">Transforme su Futuro Financiero.</h1>
+             <p className="lead mb-4 text-on-image">En <strong className="highlight-on-image">Inversiones Divitum Trade</strong>, le abrimos las puertas a oportunidades de inversión exclusivas.</p>
             <hr className="my-4" />
             <div className="mt-auto">
-                <p className="text-muted mb-2">Aceptamos pagos seguros con:</p>
-                 {/* --- PASO 2: SECCIÓN DE LOGOS ACTUALIZADA --- */}
+                <p className="text-on-image mb-2">Aceptamos pagos seguros con:</p>
                 <div className="payment-logo-wall">
-                    <img src={visaLogo} alt="Visa" className="payment-logo" />  
-                    <img src={mastercardLogo} alt="MasterCard" className="payment-logo" />
-                    <img src={mercadoPagoLogo} alt="Mercado Pago" className="payment-logo" />
-                    <img src={clipLogo} alt="Clip" className="payment-logo" />
-                    <img src={safetyPayLogo} alt="SafetyPay" className="payment-logo" />
-                    <img src={efectyLogo} alt="Efecty" className="payment-logo" />
-                    <img src={bcpLogo} alt="BCP" className="payment-logo" />
-                    <img src={pseLogo} alt="PSE" className="payment-logo" />
-                   
+                 {/* --- SECCIÓN DE LOGOS ACTUALIZADA --- */}
+                  <div className="payment-logo-wall">
+                      <img src={visaLogo} alt="Visa" className="payment-logo" />  
+                      <img src={mastercardLogo} alt="MasterCard" className="payment-logo" />
+                      <img src={mercadoPagoLogo} alt="Mercado Pago" className="payment-logo" />
+                      <img src={clipLogo} alt="Clip" className="payment-logo" />
+                      <img src={safetyPayLogo} alt="SafetyPay" className="payment-logo" />
+                      <img src={efectyLogo} alt="Efecty" className="payment-logo" />
+                      <img src={bcpLogo} alt="BCP" className="payment-logo" />
+                      <img src={pseLogo} alt="PSE" className="payment-logo" />
+                  </div>
                 </div>
             </div>
           </Col>

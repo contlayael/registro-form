@@ -66,12 +66,7 @@ body {
 
 /* src/index.css */
 
-.payment-logo-wall {
-  display: flex;
-  flex-wrap: wrap; 
-  align-items: center;
-  gap: 16px; /* Espacio entre logos */
-}
+.payment-logo-wall { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; background-color: rgba(255, 255, 255, 0.45); /* Fondo blanco con 15% de opacidad */ padding: 10px; /* Añade un poco de espacio alrededor de los logos */ border-radius: 5px; /* Opcional: añade bordes redondeados */ }
 
 .payment-logo {
   /* Aquí definimos el tamaño pequeño */
@@ -82,4 +77,31 @@ body {
   /* Este es el truco que ayuda a que el fondo blanco del JPG
      se fusione y 'desaparezca' contra el fondo gris claro. */
   mix-blend-mode: multiply;
+}
+
+.content-plaque {
+  /* Fondo blanco con alta opacidad para ser legible */
+  background-color: rgba(255, 255, 255, 0.9);
+  
+  /* Efecto de "vidrio esmerilado" que desenfoca la imagen de fondo */
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  
+  /* Estilos para que se vea como una tarjeta */
+  padding: 1.5rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.text-on-image {
+  color: #FFFFFF; /* Color de texto principal: blanco */
+  
+  /* Sombra de texto: negra, ligeramente desenfocada y desplazada */
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.highlight-on-image {
+  color: #FFD700; /* Color dorado para el texto resaltado */
+  font-weight: bold; /* Mantenemos la negrita */
 }
