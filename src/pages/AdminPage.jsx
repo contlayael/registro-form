@@ -3,13 +3,15 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Card, Form, Button, Table, Nav, Navbar, Pagination, Spinner } from 'react-bootstrap';
 
-// Importaciones de Firebase y componentes externos
+// --- IMPORTACIONES ADICIONALES PARA ELIMINAR ---
 import { auth, db } from '../firebaseConfig';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { collection, getDocs, query, orderBy, doc, deleteDoc } from 'firebase/firestore'; // Se añaden doc y deleteDoc
+import { CSVLink } from 'react-csv';
 
-// --- Sub-componente: Panel de Administración (Ahora solo muestra los datos que recibe) ---
-const AdminDashboard = ({ registrations, onLogout }) => {
+// --- Sub-componente: Panel de Administración ---
+// Se añade 'onDelete' a los props que recibe el componente
+const AdminDashboard = ({ registrations, onLogout, onDelete }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const recordsPerPage = 10;
     const countryNames = { CO: 'Colombia', MX: 'México', AR: 'Argentina', US: 'Estados Unidos' };
@@ -28,11 +30,30 @@ const AdminDashboard = ({ registrations, onLogout }) => {
         );
     }
 
+    // --- LÓGICA PARA LA EXPORTACIÓN A CSV ---
+    // 1. Definimos las cabeceras de nuestro archivo Excel/CSV
+    const headers = [
+        { label: "Nombre Completo", key: "name" },
+        { label: "Correo Electrónico", key: "email" },
+        { label: "Teléfono", key: "phone" },
+        { label: "País", key: "country" },
+        { label: "Fecha de Registro", key: "registrationDate" }
+    ];
+
+    // 2. Preparamos los datos usando TODOS los registros (no solo los de la página actual)
+    const dataForExport = registrations.map(reg => ({
+        name: reg.name,
+        email: reg.email,
+        phone: reg.phone,
+        country: countryNames[reg.country] || reg.country,
+        registrationDate: reg.registrationDate
+    }));
+
     return (
         <>
             <Navbar bg="dark" variant="dark" expand="lg">
                 <Container>
-                    <Navbar.Brand href="#" className="fw-bold" style={{ color: '#D4AF37' }}>Inversiones Bruno - Panel</Navbar.Brand>
+                    <Navbar.Brand href="#" className="fw-bold" style={{ color: '#D4AF37' }}>Divitum Trade - Panel</Navbar.Brand>
                     <Navbar.Toggle aria-controls="admin-navbar-nav" />
                     <Navbar.Collapse id="admin-navbar-nav" className="justify-content-end">
                         <Nav>
@@ -43,7 +64,19 @@ const AdminDashboard = ({ registrations, onLogout }) => {
             </Navbar>
 
             <Container className="py-5">
-                <h2 className="mb-4 text-white">Registros de Clientes Potenciales</h2>
+                <div className="d-flex justify-content-between align-items-center mb-4">
+                    <h2 className="text-white mb-0">Registros de Clientes Potenciales</h2>
+                    {/* --- BOTÓN DE EXPORTACIÓN --- */}
+                    <CSVLink 
+                        data={dataForExport} 
+                        headers={headers}
+                        filename={"registros-inversiones.csv"}
+                        className="btn btn-success"
+                        target="_blank"
+                    >
+                        📊 Exportar a Excel
+                    </CSVLink>
+                </div>
                 <Table striped bordered hover responsive variant="dark">
                     <thead>
                         <tr>
@@ -53,8 +86,8 @@ const AdminDashboard = ({ registrations, onLogout }) => {
                             <th>Teléfono</th>
                             <th>Fecha de Registro</th>
                             <th>País</th>
-                            <th className="text-center">Contactado</th>
-                            <th>Notas</th>
+                            {/* --- SE AÑADE LA COLUMNA 'ACCIONES' Y SE QUITAN LAS OTRAS --- */}
+                            <th className="text-center">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -66,8 +99,12 @@ const AdminDashboard = ({ registrations, onLogout }) => {
                                 <td>{reg.phone}</td>
                                 <td>{reg.registrationDate}</td>
                                 <td>{countryNames[reg.country] || reg.country}</td>
-                                <td className="text-center align-middle"><Form.Check type="checkbox" /></td>
-                                <td><Form.Control as="textarea" rows={1} placeholder="Añadir nota..."/></td>
+                                {/* --- SE AÑADE LA CELDA CON EL BOTÓN DE ELIMINAR --- */}
+                                <td className="text-center">
+                                    <Button variant="danger" size="sm" onClick={() => onDelete(reg.id)}>
+                                        Eliminar
+                                    </Button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
@@ -156,11 +193,27 @@ function AdminPage() {
         setIsAuthenticated(false);
         setRegistrations([]); // Limpia los datos al salir
     };
+
+    // --- NUEVA FUNCIÓN PARA ELIMINAR REGISTROS ---
+    const handleDelete = async (id) => {
+        if (window.confirm("¿Estás seguro de que quieres eliminar este registro? Esta acción es irreversible.")) {
+            try {
+                const docRef = doc(db, "registrations", id);
+                await deleteDoc(docRef);
+                // Actualiza el estado para reflejar el cambio en la UI sin recargar
+                setRegistrations(registrations.filter(reg => reg.id !== id));
+            } catch (error) {
+                console.error("Error al eliminar el registro: ", error);
+                alert("Hubo un error al eliminar el registro.");
+            }
+        }
+    };
     
     return (
         <>
             {isAuthenticated ? (
-                <AdminDashboard registrations={registrations} onLogout={handleLogout} />
+                // --- SE PASA LA FUNCIÓN onDelete AL DASHBOARD ---
+                <AdminDashboard registrations={registrations} onLogout={handleLogout} onDelete={handleDelete} />
             ) : (
                 <AdminLogin onLogin={handleLogin} isLoading={loading} />
             )}
