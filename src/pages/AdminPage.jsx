@@ -1,6 +1,6 @@
 // src/pages/AdminPage.jsx
 
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Container, Card, Form, Button, Table, Nav, Navbar, Pagination, Spinner } from 'react-bootstrap';
 
 // --- IMPORTACIONES ADICIONALES PARA ELIMINAR ---
@@ -53,7 +53,7 @@ const AdminDashboard = ({ registrations, onLogout, onDelete }) => {
         <>
             <Navbar bg="dark" variant="dark" expand="lg">
                 <Container>
-                    <Navbar.Brand href="#" className="fw-bold" style={{ color: '#D4AF37' }}>Divitum Trade - Panel</Navbar.Brand>
+                    <Navbar.Brand href="#" className="fw-bold" style={{ color: '#D4AF37' }}>INNOVATECORP - Panel</Navbar.Brand>
                     <Navbar.Toggle aria-controls="admin-navbar-nav" />
                     <Navbar.Collapse id="admin-navbar-nav" className="justify-content-end">
                         <Nav>

@@ -132,3 +132,33 @@ body {
   color: #FFD700; /* Color dorado para el texto resaltado */
   font-weight: bold; /* Mantenemos la negrita */
 }
+
+/* --- FOOTER OSCURO --- */
+.footer-dark {
+  background-color: var(--color-fondo-oscuro);
+  color: var(--color-texto-claro);
+  font-size: 0.9rem;
+}
+
+.footer-dark .text-gold {
+  color: var(--color-acento-dorado);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.footer-dark .footer-link {
+  color: var(--color-texto-claro);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-dark .footer-link:hover {
+  color: var(--color-acento-dorado);
+  text-decoration: underline;
+}
+
+.footer-dark .risk-text {
+  font-size: 0.75rem;
+  color: #bbb;
+  line-height: 1.3;
+}
